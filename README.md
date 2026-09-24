@@ -13,6 +13,7 @@ ranking-aware reinforcement learning.
 > (2) *Best-of-N rejection sampling SFT* that keeps the highest-utility
 > chain-of-thought per history → (3) *ranking-aware GRPO* whose reward is the
 > NDCG@10 of the ground-truth SID under trie-constrained beam search.
+> 
 > **Evaluation**: the model drafts its reasoning, then beam search
 > (B=10) over a prefix trie decodes a catalog-valid SID.
 
@@ -28,7 +29,6 @@ ranking-aware reinforcement learning.
 cd evo-rec
 pip install -r requirements.txt
 ```
----
 
 ## Data
 
@@ -57,7 +57,6 @@ data/
     └── rl/                               # Step 5 writes this
 ```
 
----
 ### Released checkpoints
 Download the checkpoint from [this link](https://drive.google.com/file/d/1HUn3VIPOoSYc-3SAdZalKX4Zvw0dzJgu/view?usp=drive_link) and place the `checkpoint/` directory in the project root (`./`).
 
@@ -72,7 +71,7 @@ CATEGORY=Video_Games \
 MODEL=./checkpoint/Video_Games/stage3/final \
 bash evaluation/run_eval.sh
 ```
----
+
 
 ## Training Pipeline
 
