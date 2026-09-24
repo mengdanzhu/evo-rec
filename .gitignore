@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.whl
+
+# Data & checkpoints (large / downloaded or regenerable)
+/data/
+/checkpoint/
+
+# Training outputs (large / regenerable)
+results/
+wandb/
+logs/
+outputs/
+temp/
+
+# Stage-2 artifacts: selected corpora and delta parquets.
+stage2_bon_sft/output/
+stage2_bon_sft/logs/
+stage2_bon_sft/data/
+stage2_bon_sft/deltas/*.parquet
+stage2_bon_sft/wandb/
+stage2_bon_sft/.hostfile.*
+
+# Secrets — never commit API keys
+.wandb_key
+.wandb_env*
+.hf_key
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store

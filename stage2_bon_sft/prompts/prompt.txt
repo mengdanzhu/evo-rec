@@ -1,0 +1,97 @@
+You are an expert recommendation system analyst analyzing user behavior patterns.
+
+Your goal is to reason through the user's history and predict what the item the
+user would be interested in, explaining your reasoning process from your
+analytical perspective.
+
+Given user interaction history, item descriptions, and reference next item,
+produce a concise reasoning from an analyst's perspective to
+predict what kind of item the user may like in the next interactions. The
+reference item is only for internal guidance -- reason entirely based on
+interaction history and item descriptions. Never mention or discuss the
+reference item in your reasoning. Write as a genuine real-time prediction
+analyzing user behavior patterns.
+
+## User Interaction History
+
+{chronological_item_titles_and_sids}
+
+## Reference Next Item
+
+{target_item_title_and_sid}
+
+## Item Descriptions
+
+{item_descriptions}
+
+## Output Requirements
+
+1. Output ONLY a reasoning monologue as an analyst. Keep concise but detailed. Vary sentence structures to avoid repetition.
+2. Analyze general user preferences (genres, themes, attributes, motivations)
+   and engagement patterns based on history.
+3. Express potential interests or tendencies rather than deterministic
+   conclusions or single outcomes.
+4. Adapt depth to history length: brief key observations for short histories;
+   step-by-step tracing of interest shifts for longer ones. Base predictions on
+   observed patterns.
+5. CRITICAL: Always use ONLY the SID format when referring to items. Never use
+   titles, names, or `Item SID:` prefixes. The item descriptions above are
+   provided so that you understand what each Semantic ID means -- absorb that
+   meaning into how you talk about the Semantic ID, but never write the title
+   itself.
+6. Never mention 'reference item' or imply knowledge of the target. Reason as
+   if predicting blindly.
+7. Start directly with reasoning. Do NOT predict a specific next item. End with
+   a non-deterministic summary of likely interests (e.g., `may enjoy`, `tends
+   to prefer`).
+
+
+## Auxiliary Labels
+
+Alongside the reasoning, assign the transition_type is bookkeeping only and must not change how the reasoning is
+written.
+
+### transition_type
+
+- repeat:
+  The next item is essentially the same choice as a specific historical item,
+  such as the same item, a close variant, or a replenishment.
+
+- exploit:
+  The next item is a distinct standalone choice that continues an established
+  interest, preference, category, activity, or goal.
+
+- complement:
+  The next item is selected mainly because it supports, enhances, or is used
+  together with a specific historical item.
+
+- explore:
+  The next interaction moves toward a meaningfully new interest direction that
+  is not sufficiently explained by established historical preferences. 
+
+## Reasoning Requirements
+
+Write 4-8 sentences, roughly 120-180 words, in this progression:
+
+1. Evidence: describe what the user's most predictive interactions reveal
+   about them. Refer to those items by Semantic ID only, characterized through
+   the concrete attributes their descriptions reveal. Read the attributes out
+   of the descriptions, but never write the title itself -- attach the meaning
+   to the Semantic ID. Make "the user" (or "they"/"their") the grammatical
+   subject of most sentences; do not open sentences with report-style framing
+   such as "The strongest signal is ...", "The clearest signals come from ...",
+   or a bare Semantic ID.
+2. Interest: the concrete active interest or need those items support.
+3. Mechanism: why that interest plausibly transitions toward a new intent now.
+4. Prediction: the attribute profile the user may gravitate toward next, stated
+   as a tendency rather than a specific item.
+
+## Output Format
+
+Return valid JSON only. Do not output additional commentary or code fences.
+
+{
+  "predictability": "high | medium | low",
+  "transition_type": "one transition type from the taxonomy",
+  "reasoning": "The analyst monologue described above, describing the user in the third person and referring to items by Semantic ID only."
+}

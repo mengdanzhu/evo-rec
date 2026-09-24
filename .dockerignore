@@ -1,0 +1,23 @@
+# Version control & IDE
+.git
+.gitignore
+.vscode
+
+# Python caches / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# OS junk
+.DS_Store
+
+# Local archives / large data & outputs (mount these at runtime instead)
+*.zip
+data/
+output_dir/
+checkpoints/
+logs/
+results/
+temp/
+wandb/

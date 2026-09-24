@@ -1,0 +1,59 @@
+# Evo-Rec Python dependencies
+# Install with:  pip install -r requirements.txt
+#
+# Tested environment (the one the paper's runs used):
+#   Ubuntu 24.04 · Python 3.12 · CUDA 12.8 · cuDNN 9.8 · 8x A100 80GB
+# The torch/vLLM pins below are a matched set; changing one without the others
+# breaks the Stage-3 vLLM rollout. The cu128 wheels come from the extra index.
+
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+# ============================================================
+# Matched CUDA stack — pin these together
+# ============================================================
+torch==2.8.0
+torchvision==0.23.0
+torchaudio==2.8.0
+vllm==0.10.2
+
+# ============================================================
+# Stage 1 & 2 — SFT 
+# ============================================================
+deepspeed
+transformers[hf_xet]>=4.51.0
+accelerate
+peft
+safetensors
+datasets                # local parquet/JSONL loading + the vendored verl trainer
+huggingface_hub         # pulling the Qwen3 base model only; no dataset access
+hf-transfer             # optional: faster base-model download
+
+# ============================================================
+# Stage 3 — vendored verl 0.6 trainer (run from source, not pip-installed)
+# ============================================================
+ray[default]
+hydra-core
+omegaconf
+tensordict
+torchdata
+codetiming
+psutil
+pyzmq
+filelock
+packaging
+
+# ============================================================
+# Data handling, CLI and logging
+# ============================================================
+numpy<2.0.0
+pandas
+pyarrow>=15.0.0        
+tqdm
+fire
+wandb
+
+# ============================================================
+# Not plain-pip installable — needs a CUDA/torch-matched prebuilt wheel.
+# Optional: only required if you enable FlashAttention-2 kernels.
+# ============================================================
+# flash-attn==2.7.4.post1
